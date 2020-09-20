@@ -22,6 +22,5 @@ class JsonTable {
  private:
   std::vector<Student> m_data;
   std::vector<uint32_t> m_maxWidths;
-
 };
 #endif // INCLUDE_JSONTABLE_HPP_

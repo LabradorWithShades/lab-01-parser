@@ -2,9 +2,9 @@
 // 70892548+LabradorWithShades@users.noreply.github.com
 #include "Student.hpp"
 void Student::to_json(json& j, const Student& s) {
-    j = json{{"name",  s.name },\
-             {"group", s.group},\
-             {"avg",   s.avg  },\
+    j = json{{"name",  s.name }, \
+             {"group", s.group}, \
+             {"avg",   s.avg  }, \
              {"debt",  s.debt }};
 }
 

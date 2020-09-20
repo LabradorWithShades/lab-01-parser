@@ -3,6 +3,7 @@
 #ifndef INCLUDE_STUDENT_HPP_
 #define INCLUDE_STUDENT_HPP_
 
+#include <string>
 #include "json_any_support.hpp"
 
 using nlohmann::json;
@@ -28,5 +29,4 @@ class Student {
   std::any    avg;
   std::any    debt;
 };
-
 #endif// INCLUDE_STUDENT_HPP_
