@@ -1,4 +1,5 @@
-// Copyright 2020 LabradorWithShades 70892548+LabradorWithShades@users.noreply.github.com
+// Copyright 2020 LabradorWithShades
+// 70892548+LabradorWithShades@users.noreply.github.com
 #include <JsonTable.hpp>
 #include <fstream>
 
@@ -7,11 +8,16 @@ JsonTable::JsonTable(const std::string& s):
   m_maxWidths = {4 + 2, 5 + 2, 3 + 2, 4 + 2};
   json j = json::parse(s);
   if (!j.at("items").is_array())
-    throw std::runtime_error(R"(Incorrect JSON file: "items" field should be an array!)");
+    throw std::runtime_error(\
+        R"(Incorrect JSON file: "items" field should be an array!)");
   if (j.at("items").size() != j.at("_meta").at("count").get<size_t>())
-    throw std::runtime_error(R"(Incorrect JSON file: "count" field in "_meta" field should be equal to "items" field size!)");
+    throw std::runtime_error(\
+        R"(Incorrect JSON file: "count" field in "_meta" field should\
+be equal to "items" field size!)");
 
-  for (json::const_iterator it = j.at("items").cbegin(); it != j.at("items").cend(); ++it) {
+  for (json::const_iterator it = j.at("items").cbegin();\
+                            it != j.at("items").cend();\
+                          ++it) {
     Student student;
     Student::from_json(it.value(), student);
     if (student.getNameLength() + 2 > m_maxWidths[0])
@@ -30,11 +36,17 @@ JsonTable::JsonTable(const json& j):
     m_data(0) {
     m_maxWidths = {6, 7, 5, 6};
     if (!j.at("items").is_array())
-        throw std::runtime_error(R"(Incorrect JSON file: "items" field should be an array!)");
-    if (j.at("items").size() != j.at("_meta").at("count").get<size_t>())
-        throw std::runtime_error(R"(Incorrect JSON file: "count" field in "_meta" field should be equal to "items" field size!)");
+        throw std::runtime_error(\
+        R"(Incorrect JSON file: "items" field should be an array!)");
+    if (j.at("items").size() != \
+        j.at("_meta").at("count").get<size_t>())
+        throw std::runtime_error(\
+            R"(Incorrect JSON file: "count" field in "_meta" field should \
+be equal to "items" field size!)");
 
-    for (json::const_iterator it = j.at("items").cbegin(); it != j.at("items").cend(); ++it) {
+    for (json::const_iterator it = j.at("items").cbegin();\
+                              it != j.at("items").cend();\
+                            ++it) {
         Student student;
         Student::from_json(it.value(), student);
         if (student.getNameLength() + 2 > m_maxWidths[0])
@@ -50,7 +62,6 @@ JsonTable::JsonTable(const json& j):
 }
 
 JsonTable::~JsonTable() {
-
 }
 
 void JsonTable::print(std::ostream& out) {
@@ -77,22 +88,30 @@ void JsonTable::print(std::ostream& out) {
 
     for (size_t i = 0; i < m_data.size(); ++i) {
         out << " "; m_data[i].printName(out);
-        for (uint32_t j = 0; j < m_maxWidths[0] - m_data[i].getNameLength() - 1; ++j)
+        for (uint32_t j = 0;
+                      j < m_maxWidths[0] - m_data[i].getNameLength() - 1;
+                    ++j)
             out << " ";
         out << "|";
 
         out << " "; m_data[i].printGroup(out);
-        for (uint32_t j = 0; j < m_maxWidths[1] - m_data[i].getGroupLength() - 1; ++j)
+        for (uint32_t j = 0;\
+                      j < m_maxWidths[1] - m_data[i].getGroupLength() - 1;\
+                    ++j)
             out << " ";
         out << "|";
 
         out << " "; m_data[i].printAvg(out);
-        for (uint32_t j = 0; j < m_maxWidths[2] - m_data[i].getAvgLength() - 1; ++j)
+        for (uint32_t j = 0;\
+                      j < m_maxWidths[2] - m_data[i].getAvgLength() - 1;\
+                    ++j)
             out << " ";
         out << "|";
 
         out << " "; m_data[i].printDebt(out);
-        for (uint32_t j = 0; j < m_maxWidths[3] - m_data[i].getDebtLength() - 1; ++j)
+        for (uint32_t j = 0;\
+                      j < m_maxWidths[3] - m_data[i].getDebtLength() - 1;\
+                    ++j)
             out << " ";
         out << "|";
 

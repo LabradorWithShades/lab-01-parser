@@ -1,10 +1,11 @@
+// Copyright 2020 LabradorWithShades 70892548+LabradorWithShades@users.noreply.github.com
 #ifndef INCLUDE_JSON_ANY_SUPPORT_HPP
 #define INCLUDE_JSON_ANY_SUPPORT_HPP
 
 #include <nlohmann/json.hpp>
 #include <any>
 #include <string>
-#include <array>
+#include <vector>
 
 namespace nlohmann {
     template <>

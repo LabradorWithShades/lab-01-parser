@@ -1,4 +1,5 @@
-// Copyright 2020 LabradorWithShades 70892548+LabradorWithShades@users.noreply.github.com
+// Copyright 2020 LabradorWithShades
+// 70892548+LabradorWithShades@users.noreply.github.com
 #ifndef INCLUDE_JSONTABLE_HPP_
 #define INCLUDE_JSONTABLE_HPP_
 

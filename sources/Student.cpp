@@ -1,7 +1,11 @@
-// Copyright 2020 LabradorWithShades 70892548+LabradorWithShades@users.noreply.github.com
+// Copyright 2020 LabradorWithShades
+// 70892548+LabradorWithShades@users.noreply.github.com
 #include "Student.hpp"
 void Student::to_json(json& j, const Student& s) {
-    j = json{{"name", s.name}, {"group", s.group}, {"avg", s.avg}, {"debt", s.debt}};
+    j = json{{"name",  s.name },\
+             {"group", s.group},\
+             {"avg",   s.avg  },\
+             {"debt",  s.debt }};
 }
 
 void Student::from_json(const json& j, Student& p) {
@@ -17,29 +21,36 @@ uint32_t Student::getNameLength() {
 
 uint32_t Student::getGroupLength() {
     if (group.type() == typeid(std::string))
-        return static_cast<uint32_t>(std::any_cast<std::string>(group).length());
+        return static_cast<uint32_t>(\
+            std::any_cast<std::string>(group).length());
     else if (group.type() == typeid(int))
-        return static_cast<uint32_t>(std::to_string(std::any_cast<int>(group)).length());
+        return static_cast<uint32_t>(\
+            std::to_string(std::any_cast<int>(group)).length());
     else
         return 0;
 }
 
 uint32_t Student::getAvgLength() {
     if (avg.type() == typeid(int))
-        return static_cast<uint32_t>(std::to_string(std::any_cast<int>(avg)).length());
+        return static_cast<uint32_t>(\
+            std::to_string(std::any_cast<int>(avg)).length());
     else if (avg.type() == typeid(float))
-        return static_cast<uint32_t>(std::to_string(std::any_cast<float>(avg)).length());
+        return static_cast<uint32_t>(\
+            std::to_string(std::any_cast<float>(avg)).length());
     else if (avg.type() == typeid(std::string))
-        return static_cast<uint32_t>(std::any_cast<std::string>(avg).length());
+        return static_cast<uint32_t>(\
+            std::any_cast<std::string>(avg).length());
     else
         return 0;
 }
 
 uint32_t Student::getDebtLength() {
     if (debt.type() == typeid(std::string))
-        return static_cast<uint32_t>(std::any_cast<std::string>(debt).length());
+        return static_cast<uint32_t>(\
+            std::any_cast<std::string>(debt).length());
     else if (debt.type() == typeid(std::vector<std::string>))
-        return static_cast<uint32_t>(std::any_cast<std::vector<std::string>>(debt).size() + 6);
+        return static_cast<uint32_t>(\
+            std::any_cast<std::vector<std::string>>(debt).size() + 6);
     else if (debt.type() == typeid(nullptr_t))
         return 4;
     else
@@ -74,7 +85,8 @@ void Student::printDebt(std::ostream& out) {
     if (debt.type() == typeid(std::string))
         out << std::any_cast<std::string>(debt);
     else if (debt.type() == typeid(std::vector<std::string>))
-        out << std::any_cast<std::vector<std::string>>(debt).size() << " items";
+        out << std::any_cast<std::vector<std::string>>(debt).size() <<\
+               " items";
     else
         out << "ERROR";
 }
