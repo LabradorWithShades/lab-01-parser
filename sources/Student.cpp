@@ -1,6 +1,7 @@
 // Copyright 2020 LabradorWithShades
 // 70892548+LabradorWithShades@users.noreply.github.com
 #include "Student.hpp"
+#include <sstream>
 void Student::to_json(json& j, const Student& s) {
     j = json{{"name",  s.name }, \
              {"group", s.group}, \
@@ -34,10 +35,13 @@ uint32_t Student::getAvgLength() {
     if (avg.type() == typeid(int))
         return static_cast<uint32_t>(\
             std::to_string(std::any_cast<int>(avg)).length());
-    else if (avg.type() == typeid(float))
+    else if (avg.type() == typeid(float)) {
+        std::stringstream str_stream;
+        str_stream.precision(3);
+        str_stream << std::any_cast<float>(avg);
         return static_cast<uint32_t>(\
-            std::to_string(std::any_cast<float>(avg)).length());
-    else if (avg.type() == typeid(std::string))
+            str_stream.str().length());
+    } else if (avg.type() == typeid(std::string))
         return static_cast<uint32_t>(\
             std::any_cast<std::string>(avg).length());
     else
@@ -50,7 +54,9 @@ uint32_t Student::getDebtLength() {
             std::any_cast<std::string>(debt).length());
     else if (debt.type() == typeid(std::vector<std::string>))
         return static_cast<uint32_t>(\
-            std::any_cast<std::vector<std::string>>(debt).size() + 6);
+            std::to_string(\
+            std::any_cast<std::vector<std::string>>(\
+            debt).size()).length() + 6);
     else if (debt.type() == typeid(std::nullptr_t))
         return 4;
     else
@@ -67,18 +73,20 @@ void Student::printGroup(std::ostream& out) {
     else if (group.type() == typeid(int))
         out << std::any_cast<int>(group);
     else
-        out << "ERROR";
+        out << "ERR";
 }
 
 void Student::printAvg(std::ostream& out) {
     if (avg.type() == typeid(int))
         out << std::any_cast<int>(avg);
-    else if (avg.type() == typeid(float))
-        out << out.precision(2) << std::any_cast<float>(avg);
-    else if (avg.type() == typeid(std::string))
+    else if (avg.type() == typeid(float)) {
+        out.precision(3);
+        out << std::any_cast<float>(avg);
+        out.precision(0);
+    } else if (avg.type() == typeid(std::string))
         out << std::any_cast<std::string>(avg);
     else
-        out << "ERROR";
+        out << "ERR";
 }
 
 void Student::printDebt(std::ostream& out) {
@@ -87,6 +95,8 @@ void Student::printDebt(std::ostream& out) {
     else if (debt.type() == typeid(std::vector<std::string>))
         out << std::any_cast<std::vector<std::string>>(debt).size() <<\
                " items";
+    else if (debt.type() == typeid(std::nullptr_t))
+        out << "null";
     else
-        out << "ERROR";
+        out << "ERR";
 }

@@ -68,7 +68,7 @@ void JsonTable::print(std::ostream& out) {
     std::string separator = "|";
     for (int i = 0; i < 4; ++i) {
         for (uint32_t j = 0; j < m_maxWidths[i]; ++j)
-            separator += " ";
+            separator += "-";
         separator += "|";
     }
 
@@ -76,18 +76,18 @@ void JsonTable::print(std::ostream& out) {
     for (uint32_t i = 0; i < m_maxWidths[0] - 6; ++i)
         out << " ";
     out << "| group ";
-    for (uint32_t i = 0; i < m_maxWidths[0] - 7; ++i)
+    for (uint32_t i = 0; i < m_maxWidths[1] - 7; ++i)
         out << " ";
     out << "| avg ";
-    for (uint32_t i = 0; i < m_maxWidths[0] - 5; ++i)
+    for (uint32_t i = 0; i < m_maxWidths[2] - 5; ++i)
         out << " ";
     out << "| debt ";
-    for (uint32_t i = 0; i < m_maxWidths[0] - 6; ++i)
+    for (uint32_t i = 0; i < m_maxWidths[3] - 6; ++i)
         out << " ";
-    out << std::endl << separator << std::endl;
+    out << "|" << std::endl << separator << std::endl;
 
     for (size_t i = 0; i < m_data.size(); ++i) {
-        out << " "; m_data[i].printName(out);
+        out << "| "; m_data[i].printName(out);
         for (uint32_t j = 0;
                       j < m_maxWidths[0] - m_data[i].getNameLength() - 1;
                     ++j)
@@ -133,4 +133,9 @@ JsonTable JsonTable::parseFile(const std::string& s) {
   input_file >> j;
   JsonTable table(j);
   return table;
+}
+
+std::ostream& operator<<(std::ostream& out, JsonTable table) {
+    table.print(out);
+    return out;
 }
