@@ -13,8 +13,7 @@ JsonTable::JsonTable(const std::string& s):
   if (j.at("items").size() != j.at("_meta").at("count").get<size_t>())
     throw std::runtime_error(\
         std::string(R"(Incorrect JSON file: "count" field in "_meta" )") + \
-        std::string(R"(field should be equal to "items" field size!)")
-    );
+        std::string(R"(field should be equal to "items" field size!)"));
 
   for (json::const_iterator it = j.at("items").cbegin();\
                             it != j.at("items").cend();\
@@ -42,8 +41,7 @@ JsonTable::JsonTable(const json& j):
     if (j.at("items").size() != j.at("_meta").at("count").get<size_t>())
         throw std::runtime_error(\
             std::string(R"(Incorrect JSON file: "count" field in "_meta" )") + \
-            std::string(R"(field should be equal to "items" field size!)")
-        );
+            std::string(R"(field should be equal to "items" field size!)"));
 
 
     for (json::const_iterator it = j.at("items").cbegin();\
