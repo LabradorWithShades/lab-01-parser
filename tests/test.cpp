@@ -109,11 +109,11 @@ R"(| name          | group  | avg  | debt    |
 
 TEST(ErrorHandling, FileDoesNotExist) {
     try {
-        JsonTable table = JsonTable::parseFile("incorrect_file_name.json");
+        JsonTable table = JsonTable::parseFile("incorrect.json");
     } catch (const std::runtime_error& e) {
         std::string what_str = e.what();
-        EXPECT_EQ(what_str, "File \"incorrect_file_name.json\" could not \
-be opened!");
+        std::string ref_str = "File \"incorrect.json\" could not be opened!";
+        EXPECT_EQ(what_str, ref_str);
     }
 }
 
@@ -146,8 +146,10 @@ R"({
         JsonTable table = JsonTable::parseFile("test_file.json");
     } catch (const std::runtime_error& e) {
         std::string what_str = e.what();
-        EXPECT_EQ(what_str, "Incorrect JSON file: \"count\" field in \
-\"_meta\" field should be equal to \"items\" field size!");
+        std::string ref_str = std::string(R"(Incorrect JSON file: "count")") + \
+            std::string(R"( field in "_meta" field should )") + \
+            std::string(R"(be equal to "items" field size!)");
+        EXPECT_EQ(what_str, ref_str);
     }
 }
 
@@ -170,8 +172,9 @@ R"({
         JsonTable table = JsonTable::parseFile("test_file.json");
     } catch (const std::runtime_error& e) {
         std::string what_str = e.what();
-        EXPECT_EQ(what_str, "Incorrect JSON file: \"items\" field \
-should be an array!");
+        std::string ref_str = std::string(R"(Incorrect JSON file: )") + \
+            std::string(R"("items" field should be an array!)");
+        EXPECT_EQ(what_str, ref_str);
     }
 }
 
@@ -200,8 +203,10 @@ R"({
         JsonTable table = JsonTable::parse(test_string);
     } catch (const std::runtime_error& e) {
         std::string what_str = e.what();
-        EXPECT_EQ(what_str, "Incorrect JSON file: \"count\" field in \
-\"_meta\" field should be equal to \"items\" field size!");
+        std::string ref_str = std::string(R"(Incorrect JSON file: "count")") + \
+            std::string(R"( field in "_meta" field should )") + \
+            std::string(R"(be equal to "items" field size!)");
+        EXPECT_EQ(what_str, ref_str);
     }
 }
 
@@ -219,7 +224,8 @@ R"({
         JsonTable table = JsonTable::parse(test_string);
     } catch (const std::runtime_error& e) {
         std::string what_str = e.what();
-        EXPECT_EQ(what_str, "Incorrect JSON file: \"items\" field \
-should be an array!");
+        std::string ref_str = std::string(R"(Incorrect JSON file: )") + \
+            std::string(R"("items" field should be an array!)");
+        EXPECT_EQ(what_str, ref_str);
     }
 }

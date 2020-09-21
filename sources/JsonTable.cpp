@@ -12,8 +12,9 @@ JsonTable::JsonTable(const std::string& s):
         R"(Incorrect JSON file: "items" field should be an array!)");
   if (j.at("items").size() != j.at("_meta").at("count").get<size_t>())
     throw std::runtime_error(\
-        "Incorrect JSON file: \"count\" field in \"_meta\" field should \
-be equal to \"items\" field size!");
+        std::string(R"(Incorrect JSON file: "count" field in "_meta" )") + \
+        std::string(R"(field should be equal to "items" field size!)")
+    );
 
   for (json::const_iterator it = j.at("items").cbegin();\
                             it != j.at("items").cend();\
@@ -38,11 +39,12 @@ JsonTable::JsonTable(const json& j):
     if (!j.at("items").is_array())
         throw std::runtime_error(\
         R"(Incorrect JSON file: "items" field should be an array!)");
-    if (j.at("items").size() != \
-        j.at("_meta").at("count").get<size_t>())
+    if (j.at("items").size() != j.at("_meta").at("count").get<size_t>())
         throw std::runtime_error(\
-            "Incorrect JSON file: \"count\" field in \"_meta\" field should \
-be equal to \"items\" field size!");
+            std::string(R"(Incorrect JSON file: "count" field in "_meta" )") + \
+            std::string(R"(field should be equal to "items" field size!)")
+        );
+
 
     for (json::const_iterator it = j.at("items").cbegin();\
                               it != j.at("items").cend();\
