@@ -32,20 +32,21 @@ uint32_t Student::getGroupLength() {
 }
 
 uint32_t Student::getAvgLength() {
-    if (avg.type() == typeid(int))
+    if (avg.type() == typeid(int)) {
         return static_cast<uint32_t>(\
             std::to_string(std::any_cast<int>(avg)).length());
-    else if (avg.type() == typeid(float)) {
+    } else if (avg.type() == typeid(float)) {
         std::stringstream str_stream;
         str_stream.precision(3);
         str_stream << std::any_cast<float>(avg);
         return static_cast<uint32_t>(\
             str_stream.str().length());
-    } else if (avg.type() == typeid(std::string))
+    } else if (avg.type() == typeid(std::string)) {
         return static_cast<uint32_t>(\
             std::any_cast<std::string>(avg).length());
-    else
+    } else {
         return 0;
+    }
 }
 
 uint32_t Student::getDebtLength() {
@@ -77,16 +78,17 @@ void Student::printGroup(std::ostream& out) {
 }
 
 void Student::printAvg(std::ostream& out) {
-    if (avg.type() == typeid(int))
+    if (avg.type() == typeid(int)) {
         out << std::any_cast<int>(avg);
-    else if (avg.type() == typeid(float)) {
+    } else if (avg.type() == typeid(float)) {
         out.precision(3);
         out << std::any_cast<float>(avg);
         out.precision(0);
-    } else if (avg.type() == typeid(std::string))
+    } else if (avg.type() == typeid(std::string)) {
         out << std::any_cast<std::string>(avg);
-    else
+    } else {
         out << "ERR";
+    }
 }
 
 void Student::printDebt(std::ostream& out) {
