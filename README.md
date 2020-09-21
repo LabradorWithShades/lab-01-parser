@@ -1,7 +1,7 @@
 # Лабораторная работа № 1
 | branch | status |
 |--------|--------|
-| dev    |![Build Status](https://travis-ci.org/LabradorWithShades/lab-01-parser.svg?branch=dev)|
+| dev    |[![Build Status](https://travis-ci.org/LabradorWithShades/lab-01-parser.svg?branch=dev)](https://travis-ci.org/LabradorWithShades/lab-01-parser)|
 
 ## Задание
 
