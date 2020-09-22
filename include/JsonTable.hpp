@@ -14,7 +14,7 @@ class JsonTable {
   explicit JsonTable(const json& j);
   ~JsonTable();
 
-  void print(std::ostream& out);
+  void print(std::ostream& out) const;
 
   static JsonTable parse(const std::string& s);
   static JsonTable parseFile(const std::string& s);

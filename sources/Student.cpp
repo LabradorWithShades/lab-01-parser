@@ -16,11 +16,11 @@ void Student::from_json(const json& j, Student& p) {
     j.at("debt").get_to(p.debt);
 }
 
-uint32_t Student::getNameLength() {
+uint32_t Student::getNameLength() const {
     return static_cast<uint32_t>(name.length());
 }
 
-uint32_t Student::getGroupLength() {
+uint32_t Student::getGroupLength() const {
     if (group.type() == typeid(std::string))
         return static_cast<uint32_t>(\
             std::any_cast<std::string>(group).length());
@@ -31,7 +31,7 @@ uint32_t Student::getGroupLength() {
         return 0;
 }
 
-uint32_t Student::getAvgLength() {
+uint32_t Student::getAvgLength() const {
     if (avg.type() == typeid(int)) {
         return static_cast<uint32_t>(\
             std::to_string(std::any_cast<int>(avg)).length());
@@ -49,7 +49,7 @@ uint32_t Student::getAvgLength() {
     }
 }
 
-uint32_t Student::getDebtLength() {
+uint32_t Student::getDebtLength() const {
     if (debt.type() == typeid(std::string))
         return static_cast<uint32_t>(\
             std::any_cast<std::string>(debt).length());
@@ -64,11 +64,11 @@ uint32_t Student::getDebtLength() {
         return 0;
 }
 
-void Student::printName(std::ostream& out) {
+void Student::printName(std::ostream& out) const {
     out << name;
 }
 
-void Student::printGroup(std::ostream& out) {
+void Student::printGroup(std::ostream& out) const {
     if (group.type() == typeid(std::string))
         out << std::any_cast<std::string>(group);
     else if (group.type() == typeid(int))
@@ -77,7 +77,7 @@ void Student::printGroup(std::ostream& out) {
         out << "ERR";
 }
 
-void Student::printAvg(std::ostream& out) {
+void Student::printAvg(std::ostream& out) const {
     if (avg.type() == typeid(int)) {
         out << std::any_cast<int>(avg);
     } else if (avg.type() == typeid(float)) {
@@ -91,7 +91,7 @@ void Student::printAvg(std::ostream& out) {
     }
 }
 
-void Student::printDebt(std::ostream& out) {
+void Student::printDebt(std::ostream& out) const {
     if (debt.type() == typeid(std::string))
         out << std::any_cast<std::string>(debt);
     else if (debt.type() == typeid(std::vector<std::string>))

@@ -5,7 +5,14 @@
 
 JsonTable::JsonTable(const std::string& s):
     m_data(0) {
-  m_maxWidths = {4 + 2, 5 + 2, 3 + 2, 4 + 2};
+  const int name_w = 4;
+  const int group_w = 5;
+  const int avg_w = 3;
+  const int debt_w = 4;
+  const int spaces_w = 2;
+  
+  m_maxWidths = {name_w + spaces_w, group_w + spaces_w, \
+avg_w + spaces_w, debt_w + spaces_w};
   json j = json::parse(s);
   if (!j.at("items").is_array())
     throw std::runtime_error(\
@@ -20,21 +27,28 @@ JsonTable::JsonTable(const std::string& s):
                           ++it) {
     Student student;
     Student::from_json(it.value(), student);
-    if (student.getNameLength() + 2 > m_maxWidths[0])
-        m_maxWidths[0] = student.getNameLength() + 2;
-    if (student.getGroupLength() + 2 > m_maxWidths[1])
-        m_maxWidths[1] = student.getGroupLength() + 2;
-    if (student.getAvgLength() + 2 > m_maxWidths[2])
-        m_maxWidths[2] = student.getAvgLength() + 2;
+    if (student.getNameLength() + spaces_w > m_maxWidths[0])
+        m_maxWidths[0] = student.getNameLength() + spaces_w;
+    if (student.getGroupLength() + spaces_w > m_maxWidths[1])
+        m_maxWidths[1] = student.getGroupLength() + spaces_w;
+    if (student.getAvgLength() + spaces_w > m_maxWidths[2])
+        m_maxWidths[2] = student.getAvgLength() + spaces_w;
     if (student.getDebtLength() + 2 > m_maxWidths[3])
-        m_maxWidths[3] = student.getDebtLength() + 2;
+        m_maxWidths[3] = student.getDebtLength() + spaces_w;
     m_data.push_back(student);
   }
 }
 
 JsonTable::JsonTable(const json& j):
     m_data(0) {
-    m_maxWidths = {6, 7, 5, 6};
+    const int name_w = 4;
+    const int group_w = 5;
+    const int avg_w = 3;
+    const int debt_w = 4;
+    const int spaces_w = 2;
+  
+    m_maxWidths = {name_w + spaces_w, group_w + spaces_w, \
+avg_w + spaces_w, debt_w + spaces_w};
     if (!j.at("items").is_array())
         throw std::runtime_error(\
         R"(Incorrect JSON file: "items" field should be an array!)");
@@ -49,14 +63,14 @@ JsonTable::JsonTable(const json& j):
                             ++it) {
         Student student;
         Student::from_json(it.value(), student);
-        if (student.getNameLength() + 2 > m_maxWidths[0])
-            m_maxWidths[0] = student.getNameLength() + 2;
-        if (student.getGroupLength() + 2 > m_maxWidths[1])
-            m_maxWidths[1] = student.getGroupLength() + 2;
-        if (student.getAvgLength() + 2 > m_maxWidths[2])
-            m_maxWidths[2] = student.getAvgLength() + 2;
-        if (student.getDebtLength() + 2 > m_maxWidths[3])
-            m_maxWidths[3] = student.getDebtLength() + 2;
+        if (student.getNameLength() + spaces_w > m_maxWidths[0])
+            m_maxWidths[0] = student.getNameLength() + spaces_w;
+        if (student.getGroupLength() + spaces_w > m_maxWidths[1])
+            m_maxWidths[1] = student.getGroupLength() + spaces_w;
+        if (student.getAvgLength() + spaces_w > m_maxWidths[2])
+            m_maxWidths[2] = student.getAvgLength() + spaces_w;
+        if (student.getDebtLength() + spaces_w > m_maxWidths[3])
+            m_maxWidths[3] = student.getDebtLength() + spaces_w;
         m_data.push_back(student);
   }
 }
@@ -64,53 +78,60 @@ JsonTable::JsonTable(const json& j):
 JsonTable::~JsonTable() {
 }
 
-void JsonTable::print(std::ostream& out) {
-    std::string separator = "|";
-    for (int i = 0; i < 4; ++i) {
+void JsonTable::print(std::ostream& out) const {
+    const int columnt_count = 4;
+    const int name_w = 4;
+    const int group_w = 5;
+    const int avg_w = 3;
+    const int debt_w = 4;
+    const int spaces_w = 2;
+    
+    std::string separator = "|";    
+    for (int i = 0; i < columnt_count; ++i) {
         for (uint32_t j = 0; j < m_maxWidths[i]; ++j)
             separator += "-";
         separator += "|";
     }
 
     out << "| name ";
-    for (uint32_t i = 0; i < m_maxWidths[0] - 6; ++i)
+    for (uint32_t i = 0; i < m_maxWidths[0] - name_w - spaces_w; ++i)
         out << " ";
     out << "| group ";
-    for (uint32_t i = 0; i < m_maxWidths[1] - 7; ++i)
+    for (uint32_t i = 0; i < m_maxWidths[1] - group_w - spaces_w; ++i)
         out << " ";
     out << "| avg ";
-    for (uint32_t i = 0; i < m_maxWidths[2] - 5; ++i)
+    for (uint32_t i = 0; i < m_maxWidths[2] - avg_w - spaces_w; ++i)
         out << " ";
     out << "| debt ";
-    for (uint32_t i = 0; i < m_maxWidths[3] - 6; ++i)
+    for (uint32_t i = 0; i < m_maxWidths[3] - debt_w - spaces_w; ++i)
         out << " ";
     out << "|" << std::endl << separator << std::endl;
 
     for (size_t i = 0; i < m_data.size(); ++i) {
         out << "| "; m_data[i].printName(out);
         for (uint32_t j = 0;
-                      j < m_maxWidths[0] - m_data[i].getNameLength() - 1;
+                      j < m_maxWidths[0] - m_data[i].getNameLength() - spaces_w + 1;
                     ++j)
             out << " ";
         out << "|";
 
         out << " "; m_data[i].printGroup(out);
         for (uint32_t j = 0;\
-                      j < m_maxWidths[1] - m_data[i].getGroupLength() - 1;\
+                      j < m_maxWidths[1] - m_data[i].getGroupLength() - spaces_w + 1;\
                     ++j)
             out << " ";
         out << "|";
 
         out << " "; m_data[i].printAvg(out);
         for (uint32_t j = 0;\
-                      j < m_maxWidths[2] - m_data[i].getAvgLength() - 1;\
+                      j < m_maxWidths[2] - m_data[i].getAvgLength() - spaces_w + 1;\
                     ++j)
             out << " ";
         out << "|";
 
         out << " "; m_data[i].printDebt(out);
         for (uint32_t j = 0;\
-                      j < m_maxWidths[3] - m_data[i].getDebtLength() - 1;\
+                      j < m_maxWidths[3] - m_data[i].getDebtLength() - spaces_w + 1;\
                     ++j)
             out << " ";
         out << "|";

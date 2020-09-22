@@ -10,15 +10,15 @@ using nlohmann::json;
 
 class Student {
  public:
-  uint32_t getNameLength();
-  uint32_t getGroupLength();
-  uint32_t getAvgLength();
-  uint32_t getDebtLength();
+  uint32_t getNameLength() const;
+  uint32_t getGroupLength() const;
+  uint32_t getAvgLength() const;
+  uint32_t getDebtLength() const;
 
-  void printName(std::ostream& out);
-  void printGroup(std::ostream& out);
-  void printAvg(std::ostream& out);
-  void printDebt(std::ostream& out);
+  void printName(std::ostream& out) const;
+  void printGroup(std::ostream& out) const;
+  void printAvg(std::ostream& out) const;
+  void printDebt(std::ostream& out) const;
 
   static void to_json(json& j, const Student& s);
   static void from_json(const json& j, Student& p);
