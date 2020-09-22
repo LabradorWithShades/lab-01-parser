@@ -20,7 +20,6 @@ class Student {
   void printAvg(std::ostream& out) const;
   void printDebt(std::ostream& out) const;
 
-  static void to_json(json& j, const Student& s);
   static void from_json(const json& j, Student& p);
 
  private:
