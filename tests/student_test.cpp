@@ -20,7 +20,7 @@ TEST(Student_Parse, FromJson) {
   EXPECT_EQ(s.getName(), std::string("Ivanov Petr"));
   EXPECT_EQ(std::any_cast<std::string>(s.getGroup()), "1");
   EXPECT_EQ(std::any_cast<std::string>(s.getAvg()), "4.25");
-  EXPECT_EQ(std::any_cast<nullptr_t>(s.getDebt()), nullptr);
+  EXPECT_EQ(std::any_cast<std::nullptr_t>(s.getDebt()), nullptr);
 
   j = json::parse(R"({
   "name": "Sidorov Ivan",
