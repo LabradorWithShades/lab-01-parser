@@ -54,9 +54,8 @@ uint32_t Student::getDebtLength() const {
         return static_cast<uint32_t>(\
             std::any_cast<std::string>(m_debt).length());
     else if (m_debt.type() == typeid(std::vector<std::string>))
-        return static_cast<uint32_t>(\
-            std::to_string(\
-            std::any_cast<std::vector<std::string>>(m_debt).size()).length() + 6);
+        return static_cast<uint32_t>(std::to_string(\
+       std::any_cast<std::vector<std::string>>(m_debt).size()).length() + 6);
     else if (m_debt.type() == typeid(std::nullptr_t))
         return 4;
     else
