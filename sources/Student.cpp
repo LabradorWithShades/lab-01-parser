@@ -2,6 +2,13 @@
 // 70892548+LabradorWithShades@users.noreply.github.com
 #include "Student.hpp"
 #include <sstream>
+void Student::to_json(json& j, const Student& s) {
+    j = json{{"name",  s.name }, \
+             {"group", s.group}, \
+             {"avg",   s.avg  }, \
+             {"debt",  s.debt }};
+}
+
 void Student::from_json(const json& j, Student& p) {
     j.at("name").get_to(p.name);
     j.at("group").get_to(p.group);
