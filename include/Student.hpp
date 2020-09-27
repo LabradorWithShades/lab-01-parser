@@ -28,10 +28,10 @@ class Student {
   inline std::any getAvg() const { return m_avg; }
   inline std::any getDebt() const { return m_debt; }
 
-  inline void setName(std::string name) { m_name = name; }
-  inline void setGroup(std::any group) { m_group = group; }
-  inline void setAvg(std::any avg) { m_avg = avg; }
-  inline void setDebt(std::any debt) { m_debt = debt; }
+  inline void setName(const std::string& name) { m_name = name; }
+  inline void setGroup(const std::any& group) { m_group = group; }
+  inline void setAvg(const std::any& avg) { m_avg = avg; }
+  inline void setDebt(const std::any& debt) { m_debt = debt; }
 
  private:
   std::string m_name = "John Doe";

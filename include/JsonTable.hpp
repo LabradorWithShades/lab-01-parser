@@ -24,6 +24,6 @@ class JsonTable {
   std::vector<uint32_t> m_maxWidths;
 };
 
-std::ostream& operator<<(std::ostream& out, JsonTable table);
+std::ostream& operator<<(std::ostream& out, const JsonTable& table);
 
 #endif // INCLUDE_JSONTABLE_HPP_

@@ -161,7 +161,7 @@ JsonTable JsonTable::parseFile(const std::string& s) {
   return table;
 }
 
-std::ostream& operator<<(std::ostream& out, JsonTable table) {
+std::ostream& operator<<(std::ostream& out, const JsonTable& table) {
     table.print(out);
     return out;
 }
