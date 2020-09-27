@@ -5,11 +5,7 @@
 #include <sstream>
 #include <fstream>
 
-TEST(GTest_Check, EmptyTest) {
-    EXPECT_TRUE(true);
-}
-
-TEST(Parse, FromString) {
+TEST(JsonTable_Parse, FromString) {
     std::string test_string =\
 R"({
   "items": [
@@ -56,7 +52,7 @@ R"(| name          | group  | avg  | debt    |
     EXPECT_EQ(str_stream.str(), ref_string);
 }
 
-TEST(Parse, FromFile) {
+TEST(JsonTable_Parse, FromFile) {
     std::string test_string =\
 R"({
   "items": [
@@ -107,7 +103,7 @@ R"(| name          | group  | avg  | debt    |
     EXPECT_EQ(str_stream.str(), ref_string);
 }
 
-TEST(ErrorHandling, FileDoesNotExist) {
+TEST(JsonTable_ErrorHandling, FileDoesNotExist) {
     try {
         JsonTable table = JsonTable::parseFile("incorrect.json");
     } catch (const std::runtime_error& e) {
@@ -117,7 +113,7 @@ TEST(ErrorHandling, FileDoesNotExist) {
     }
 }
 
-TEST(ErrorHandling, FileIncorrectCount) {
+TEST(JsonTable_ErrorHandling, FileIncorrectCount) {
     std::string test_string =\
 R"({
   "items": [
@@ -153,7 +149,7 @@ R"({
     }
 }
 
-TEST(ErrorHandling, FileIncorrectItemsType) {
+TEST(JsonTable_ErrorHandling, FileIncorrectItemsType) {
     std::string test_string =\
 R"({
   "items": {
@@ -178,7 +174,7 @@ R"({
     }
 }
 
-TEST(ErrorHandling, StringIncorrectCount) {
+TEST(JsonTable_ErrorHandling, StringIncorrectCount) {
     std::string test_string =\
 R"({
   "items": [
@@ -210,7 +206,7 @@ R"({
     }
 }
 
-TEST(ErrorHandling, StringIncorrectItemsType) {
+TEST(JsonTable_ErrorHandling, StringIncorrectItemsType) {
     std::string test_string =\
 R"({
   "items": {

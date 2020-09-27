@@ -23,10 +23,20 @@ class Student {
   static void to_json(json& j, const Student& s);
   static void from_json(const json& j, Student& p);
 
+  inline std::string getName() const { return m_name; }
+  inline std::any getGroup() const { return m_group; }
+  inline std::any getAvg() const { return m_avg; }
+  inline std::any getDebt() const { return m_debt; }
+
+  inline void setName(const std::string& name) { m_name = name; }
+  inline void setGroup(const std::any& group) { m_group = group; }
+  inline void setAvg(const std::any& avg) { m_avg = avg; }
+  inline void setDebt(const std::any& debt) { m_debt = debt; }
+
  private:
-  std::string name;
-  std::any    group;
-  std::any    avg;
-  std::any    debt;
+  std::string m_name = "John Doe";
+  std::any    m_group = "IU00-00";
+  std::any    m_avg = 0.00;
+  std::any    m_debt = nullptr;
 };
 #endif// INCLUDE_STUDENT_HPP_
